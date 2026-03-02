@@ -1,0 +1,16 @@
+/workspaces/test-automation-framework/Framework/bin/Debug/net8.0/Framework.deps.json
+/workspaces/test-automation-framework/Framework/bin/Debug/net8.0/Framework.dll
+/workspaces/test-automation-framework/Framework/bin/Debug/net8.0/Framework.pdb
+/workspaces/test-automation-framework/Framework/bin/Debug/net8.0/Common.dll
+/workspaces/test-automation-framework/Framework/bin/Debug/net8.0/Common.pdb
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.csproj.AssemblyReference.cache
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.AssemblyInfoInputs.cache
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.AssemblyInfo.cs
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.csproj.CoreCompileInputs.cache
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.sourcelink.json
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.csproj.Up2Date
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.dll
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/refint/Framework.dll
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/Framework.pdb
+/workspaces/test-automation-framework/Framework/obj/Debug/net8.0/ref/Framework.dll
