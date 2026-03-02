@@ -1,0 +1,8 @@
+{
+  "name": "C# API Automation Framework",
+  "image": "mcr.microsoft.com/dotnet/sdk:7.0",
+  "features": {
+    "git": {}
+  },
+  "postCreateCommand": "dotnet tool restore"
+}

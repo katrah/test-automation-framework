@@ -1,0 +1,11 @@
+/workspaces/test-automation-framework/Common/bin/Debug/net7.0/Common.deps.json
+/workspaces/test-automation-framework/Common/bin/Debug/net7.0/Common.dll
+/workspaces/test-automation-framework/Common/bin/Debug/net7.0/Common.pdb
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.AssemblyInfoInputs.cache
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.AssemblyInfo.cs
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.csproj.CoreCompileInputs.cache
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.dll
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/refint/Common.dll
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/Common.pdb
+/workspaces/test-automation-framework/Common/obj/Debug/net7.0/ref/Common.dll
