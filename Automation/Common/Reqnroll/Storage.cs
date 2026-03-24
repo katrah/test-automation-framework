@@ -331,7 +331,7 @@ namespace Automation.Common.Reqnroll
         public bool GetCurrentObject(string key, out dynamic obj, string subKey = "")
         {
             obj = null;
-            foreach (KeyValuePair<string, object> kvp in ScenarioContext.Current)
+            foreach (KeyValuePair<string, object> kvp in scnCtxt)
             {
                 if (kvp.Key.StartsWith(string.Format("{0}|{1}", key, subKey)))
                 {

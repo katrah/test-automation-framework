@@ -1,0 +1,153 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using Common.Data;
+using Framework.Library;
+using Framework.Library.Extensions;
+using PostSharp.Aspects;
+using PostSharp.Extensibility;
+
+namespace Automation.Common.Helpers
+{
+    [AspectDescription(@"General catchall for Exceptions.  Best used on void methods because in the event of a failure,
+you get a return of null (except for ValueType objects which return a default value).
+Logs a nicely formatted error in the TestController (FailAndResume).
+You can also specify types of Exceptions you want to ignore (not catch).
+Special note:  If the calling method has a bool parameter called 'throwError', that parameter's value determines if this will
+simply rethrow the Exception without changing it (throwError == true) or if this will log a nicely formatted error.")]
+    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Module |
+        AttributeTargets.Class | AttributeTargets.Struct |
+        AttributeTargets.Method | AttributeTargets.Constructor, AllowMultiple = true)]
+    [LinesOfCodeAvoided(10)]
+    [MulticastAttributeUsage(MulticastTargets.Method | MulticastTargets.InstanceConstructor | MulticastTargets.StaticConstructor, AllowMultiple = true)]
+    [Serializable]
+    public class ExceptionFailAndResumeAttribute : OnExceptionAspect
+    {
+        private readonly List<Type> ignoreExceptions;
+        private readonly TestController test;
+        private int throwErrorIndex = -1;
+
+        public ExceptionFailAndResumeAttribute(Enums.TestBase testBaseType, params Type[] ignoreExceptionTypes)
+        {
+            string projectPath = Directory.GetParent(PostSharpEnvironment.CurrentProject.EvaluateExpression("{$MSBuildProjectFullPath}")).FullName;
+            switch (testBaseType)
+            {
+                case Enums.TestBase.Web:
+                    test = WebTestBase.GetInstance("OG.config", string.Format(@"{0}\OG.config", projectPath)).Test;
+                    break;
+
+                default:
+                    test = null;
+                    break;
+            }
+            ignoreExceptions = new List<Type>(ignoreExceptionTypes);
+        }
+
+        public override void CompileTimeInitialize(MethodBase method, AspectInfo aspectInfo)
+        {
+            base.CompileTimeInitialize(method, aspectInfo);
+            ParameterInfo[] parameters = method.GetParameters();
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (parameters[i].ParameterType == typeof(bool) && parameters[i].Name.Equals("throwError", StringComparison.OrdinalIgnoreCase))
+                {
+                    throwErrorIndex = i;
+                    break;
+                }
+            }
+        }
+
+        public override void OnException(MethodExecutionArgs args)
+        {
+            bool throwError = false;
+            if (throwErrorIndex >= 0)
+            {
+                throwError = args.Arguments[throwErrorIndex].ConvertToBool();
+            }
+
+            if (throwError || ignoreExceptions.Contains(args.Exception.GetType()))
+            {
+                args.FlowBehavior = FlowBehavior.RethrowException;
+                return;
+            }
+
+            string declaringTypeName = string.Empty;
+            if (args.Method.DeclaringType != null)
+            {
+                declaringTypeName = args.Method.DeclaringType.Name;
+            }
+
+            string msg = string.Format("{0}.{1}: {2}: {3}{4}", declaringTypeName, args.Method.Name, args.Exception.GetType(), args.Exception.Message, "{0}");
+            if (args.Exception.InnerException == null)
+            {
+                msg = string.Format(msg, string.Empty);
+            }
+            else
+            {
+                msg = string.Format(msg, string.Format("{0}{1}", Environment.NewLine, args.Exception.InnerException));
+            }
+
+            MethodInfo info = (MethodInfo)args.Method;
+            if (info.ReturnType != typeof(void))
+            {
+                if (info.ReturnType.IsArray)
+                {
+                    if (info.ReturnType.GetArrayRank() > 1)
+                    {
+                        args.ReturnValue = Array.CreateInstance(info.ReturnType.GetElementType(), new int[info.ReturnType.GetArrayRank()]);
+                    }
+                    else
+                    {
+                        args.ReturnValue = Array.CreateInstance(info.ReturnType.GetElementType(), 0);
+                    }
+                }
+                else if (info.ReturnType == typeof(string))
+                {
+                    // string is IEnumerable<char>, but don't want to treat it like a collection
+                    args.ReturnValue = string.Empty;
+                }
+                else if (typeof(IEnumerable).IsAssignableFrom(info.ReturnType))
+                {
+                    // Check if an empty array is an instance of T
+                    if (info.ReturnType.IsAssignableFrom(typeof(object[])))
+                    {
+                        args.ReturnValue = new object[0];
+                    }
+                    else if (info.ReturnType.IsGenericType && info.ReturnType.GetGenericArguments().Length == 1)
+                    {
+                        Type elementType = info.ReturnType.GetGenericArguments()[0];
+                        if (info.ReturnType.IsAssignableFrom(elementType.MakeArrayType()))
+                        {
+                            args.ReturnValue = Array.CreateInstance(elementType, 0);
+                        }
+                        else
+                        {
+                            args.ReturnValue = Activator.CreateInstance(info.ReturnType);
+                        }
+                    }
+                    //throw new NotImplementedException(string.Format("No default value is implemented for type {0}", typeof(T).FullName));
+                }
+                else if (info.ReturnType.IsValueType)
+                {
+                    args.ReturnValue = Activator.CreateInstance(info.ReturnType);
+                }
+                else
+                {
+                    args.ReturnValue = null;
+                }
+            }
+
+            if (test != null)
+            {
+                test.FailAndResume(msg);
+            }
+            else
+            {
+                throw (Exception)Activator.CreateInstance(args.Exception.GetType(), msg);
+            }
+            args.FlowBehavior = FlowBehavior.Return;
+        }
+    }
+}

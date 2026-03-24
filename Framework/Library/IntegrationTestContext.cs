@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-//using Framework.Library.Extensions;
+using Framework.Library.Extensions;
 
 namespace Framework.Library
 {
@@ -12,7 +12,6 @@ namespace Framework.Library
     /// </summary>
     public sealed class IntegrationTestContext
     {
-        /*
         #region Private Members
         /// <summary>
         /// For Users who are authorized in multiple Customer Instances, this controls the active instance the test will run on
@@ -430,7 +429,7 @@ namespace Framework.Library
                 ActiveInstanceChanged(this, e);
             }
         }
-        */
+        
     }
     
 

@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "aTxab7d04is=",
+  "dgSpecHash": "WN0D1P5mKCw=",
   "success": true,
   "projectFilePath": "/workspaces/test-automation-framework/Framework/Framework.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/root/.nuget/packages/htmlagilitypack/1.12.4/htmlagilitypack.1.12.4.nupkg.sha512",
+    "/root/.nuget/packages/newtonsoft.json/13.0.4/newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
   "logs": []
 }

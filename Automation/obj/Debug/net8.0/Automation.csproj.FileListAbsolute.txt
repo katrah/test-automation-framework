@@ -18,6 +18,7 @@
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Cucumber.HtmlFormatter.dll
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Cucumber.Messages.dll
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Gherkin.dll
+/workspaces/test-automation-framework/Automation/bin/Debug/net8.0/HtmlAgilityPack.dll
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Microsoft.ApplicationInsights.dll
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
 /workspaces/test-automation-framework/Automation/bin/Debug/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll
