@@ -46,7 +46,7 @@ namespace Framework.Library
                 ResponseBody = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             }
 
-            //Map HttpClient headers to WebHeaderCollection for backward compatibility: 
+            // Map HttpClient headers to WebHeaderCollection for backward compatibility: 
             ResponseHeaders = new WebHeaderCollection();
             foreach (KeyValuePair<string, IEnumerable<string>> header in response.Headers)
             {
@@ -62,7 +62,7 @@ namespace Framework.Library
             }
         }
 
-        // Constructo for error scenario with just status code and message:
+        // Constructor for error scenario with just status code and message:
         public HttpResponseWrapper(HttpClient request, HttpStatusCode statusCode, string errorMessage,
             CookieContainer cookieContainer = null)
         {

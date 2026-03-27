@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using HtmlAgilityPack;
@@ -313,6 +314,22 @@ namespace Framework.Library.Extensions
             {
             }
             return result;
+        }
+
+
+        public static string DumpHeaders(this WebHeaderCollection collection)
+        {
+            StringBuilder stringResponse = new StringBuilder();
+            foreach (string key in collection.AllKeys)
+            {
+                string valStr = String.Empty;
+                if (collection.GetValues(key) != null)
+                {
+                    valStr = string.Join(", ", collection.GetValues(key));
+                }
+                stringResponse.AppendLine(string.Format("Header: {0}; Value: {1}", key, valStr));
+            }
+            return stringResponse.ToString();
         }
 
         /// <summary>

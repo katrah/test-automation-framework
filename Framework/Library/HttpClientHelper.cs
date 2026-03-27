@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Framework.Library
 {
-    public static class HttpWebHelper
+    public static class HttpClientHelper
     {
         public static string HtmlEncode(string inputStr, bool fullEncode = false)
         {
@@ -16,12 +16,11 @@ namespace Framework.Library
                 return inputStr;
             }
             return inputStr.Replace("%", "%25").Replace("<", "%3C").Replace(">", "%3E").Replace(" ", "%20").Replace("#", "%23").Replace("{", "%7B")
-                .Replace("}", "%7D").Replace("|", "%7C").Replace("^", "%5E").Replace("~", "%7E").Replace('[', "%5B").Replace("]", "%5D").Replace("'", "%60")
+                .Replace("}", "%7D").Replace("|", "%7C").Replace("^", "%5E").Replace("~", "%7E").Replace("[", "%5B").Replace("]", "%5D").Replace("'", "%60")
                 .Replace("\\", "%5C").Replace("\"", "%22");
         }
 
-        public static SendHttpRequest(string url, string method, string body = null, 
-        WebHeaderCollection headers = null, CookieContainer cookieContainer = null, PostType bodyType = PostType.Json)
+        public static HttpResponseWrapper SendHttpRequest(string url, string method, string body = null, WebHeaderCollection headers = null, CookieContainer cookieContainer = null, PostType bodyType = PostType.Json)
         {
             if (string.IsNullOrWhiteSpace(url))
             {
@@ -36,7 +35,7 @@ namespace Framework.Library
             HttpClientHandler handler = new HttpClientHandler
             {
                 CookieContainer = cookieContainer,
-                UseCookiers = true
+                UseCookies = true
             };
 
             HttpClient client = new HttpClient(handler);
@@ -90,9 +89,9 @@ namespace Framework.Library
                             request.Headers.Accept.ParseAdd("application/json, text/plain */*");
                             break;
 
-                        case PostType.GraphQL:
+                        case PostType.GraphQl:
                             if (string.IsNullOrEmpty(body))
-                                throw new TestProxyExeption("GraphQL request must contain a body");
+                                throw new TestProxyException("GraphQL request must contain a body");
                             
                             string jsonBody = body
                                 .Replace("\r", "")
@@ -138,7 +137,7 @@ namespace Framework.Library
             // Send the request
             try
             {
-                HttpResponseMessage response = client.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResults();
+                HttpResponseMessage response = client.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
                 HttpResponseWrapper wrapper = new HttpResponseWrapper(client, response);
                 wrapper.RequestUri = request.RequestUri;
                 return wrapper;
