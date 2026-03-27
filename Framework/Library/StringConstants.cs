@@ -5,7 +5,8 @@ namespace Framework.Library
     public static class StringConstants
     {
         // Storage constants
-        public const string String = "String";
+        public const string UserRequest = "UserRequest";
+        public const string UserResponse = "UserResponse";
         public const string Response = "Response";
         public const string Request = "Request";
         // Config constants
