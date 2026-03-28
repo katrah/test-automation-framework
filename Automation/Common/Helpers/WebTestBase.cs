@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-//using Automation.Click2Renew.Web.Api.Helpers;
+using Automation.DummyJson.Web.Api.Helpers;
 //using Automation.Common.UI;
 using Common.Tools;
 using Framework.Library;
@@ -14,8 +14,8 @@ namespace Automation.Common.Helpers
         private bool eventsRegistered = false;
 
 
-        //private ProxyClick2RenewApi click2RenewProxy = null;
-        //private Click2RenewBaseMethods click2RenewBaseMethods = null;
+        private ProxyDummyJsonApi dummyJsonProxy = null;
+        private DummyJsonBaseMethods dummyJsonBaseMethods = null;
 
 
         private static volatile WebTestBase instance;
@@ -38,17 +38,17 @@ namespace Automation.Common.Helpers
         }
         */
 
-        /*private ProxyClick2RenewApi click2RenewApiProxy
+        private ProxyDummyJsonApi dummyJsonApiProxy
         {
             get
             {
-                if (click2RenewProxy == null)
+                if (dummyJsonProxy == null)
                 {
-                    click2RenewProxy = new ProxyClick2RenewApi(Context);
+                    dummyJsonProxy = new ProxyDummyJsonApi(Context);
                 }
-                return click2RenewProxy;
+                return dummyJsonProxy;
             }
-        }*/
+        }
 
         
 
@@ -75,18 +75,18 @@ namespace Automation.Common.Helpers
             SetUp();
         }
 
-/*
-        public Click2RenewBaseMethods Click2Renew
+
+        public DummyJsonBaseMethods DummyJson
         {
             get
             {
-                if (click2RenewBaseMethods == null)
+                if (dummyJsonBaseMethods == null)
                 {
-                    click2RenewBaseMethods = new Click2RenewBaseMethods(Performance, click2RenewApiProxy);
+                    dummyJsonBaseMethods = new DummyJsonBaseMethods(Performance, dummyJsonApiProxy);
                 }
-                return click2RenewBaseMethods;
+                return dummyJsonBaseMethods;
             }
-        }*/
+        }
 
         
         #region Public Methods
@@ -133,10 +133,12 @@ namespace Automation.Common.Helpers
         public override void TearDown()
         {
             //Browsers = new List<BrowserObj>();
-            base.TearDown();
             eventsRegistered = false;
-            //click2RenewProxy = null;
-            //click2RenewBaseMethods = null;
+            dummyJsonProxy = null;
+            dummyJsonBaseMethods = null;
+
+            // base.TearDown() is the last thing you should do in this method. 
+            base.TearDown();
         }
 
         public override void TestFixtureTearDown()

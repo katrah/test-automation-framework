@@ -26,5 +26,20 @@ namespace Automation.DummyJson.Web.Api.StepDefinitions
                     break;
             }
         }
+
+        [Given(@"^(?i)(?:I\s)?submit (?:the\s)?DummyJsonCreateUser request")]
+        public void GivenSubmitCreateUserRequest()
+        {
+            switch (storage.GetWebTestMethod())
+            {
+                case WebTestMethodType.WebApi:
+                    UserMethods.SubmitCreateUserRequest();
+                    break;
+
+                case WebTestMethodType.WebUi:
+                    // UI test would go here 
+                    break;
+            }
+        }
     }
 }

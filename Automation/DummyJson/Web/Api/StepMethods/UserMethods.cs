@@ -14,5 +14,11 @@ namespace Automation.DummyJson.Web.Api.StepMethods
             ResponseBase response = User.CreateByFirstNameLastName(firstName, lastName);
             wtb.Test.AssertAndResume(!response.Failed, response.Msg);
         }
+
+        public static void SubmitCreateUserRequest()
+        {
+            ResponseBase response = User.SubmitCreateRequest(wtb);
+            wtb.Test.AssertAndResume(!response.Failed, response.Msg);
+        }
     }
 }

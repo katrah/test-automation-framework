@@ -441,9 +441,7 @@ namespace Framework.Library
     {
         C2rApiBase,
         DalServiceUri,
-        DataFabricApiBase,
-        EdsApiBase,
-        GatewayApiBase,
+        DummyJsonApiBase,
         KeyServiceUri,
         JobMasterUri,
         JobRunnerUri,
