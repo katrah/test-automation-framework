@@ -159,7 +159,7 @@ namespace Common.Tools
                         }
                         else
                         {
-                            postBodyObject = JsonConvert.SerializeObject(postBodyObject, serializerSettings);
+                            postBody = JsonConvert.SerializeObject(postBodyObject, serializerSettings);
                         }
                     }
 
