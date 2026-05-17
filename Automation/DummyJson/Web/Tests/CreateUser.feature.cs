@@ -131,7 +131,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             {
                 await this.ScenarioStartAsync();
 #line 6
-  await testRunner.GivenAsync("I create a user with first name \"Daria\" and last name \"Quinn\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+  await testRunner.GivenAsync("I create a user with first name Daria and last name Quinn", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 7
   await testRunner.AndAsync("I submit the DummyJsonCreateUser request", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");

@@ -86,7 +86,7 @@ namespace Framework.Library
                     {
                         case PostType.Json:
                             request.Content = new StringContent(body, Encoding.UTF8, "application/json");
-                            request.Headers.Accept.ParseAdd("application/json, text/plain */*");
+                            request.Headers.Accept.ParseAdd("application/json, text/plain, */*");
                             break;
 
                         case PostType.GraphQl:

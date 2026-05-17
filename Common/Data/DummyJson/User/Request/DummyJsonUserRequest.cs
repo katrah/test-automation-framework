@@ -10,7 +10,7 @@ namespace Common.Data.DummyJson.User.Request
         [JsonProperty("firstName")]
         public string FirstName { get; set ;}
 
-        [JsonProperty("LastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set ;}
 
         public void AddField(string fieldName, string valStr)
